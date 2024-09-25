@@ -1,0 +1,122 @@
+<!DOCTYPE html> 
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de Usuários</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="layout">
+        <nav class="menu-lateral">
+            <h2>Menu</h2>
+            <ul>
+                <li><a href="#" onclick="mostrarFormulario()">Criar Usuário</a></li>
+                <li><a href="#" onclick="mostrarListaUsuarios()">Gerenciar Usuários</a></li>
+                <li><a href="#">Configurações</a></li>
+                <li><a href="#">Sair</a></li>
+            </ul>
+        </nav>
+
+        <div class="conteudo">  
+            <div class="card-carro">
+                <img src="https://legado.autoforce.com.br/assets/ddm/images/fiat-pulse/versoes/Pulse_1.3_MT_Com_sombra.png" alt="Carro Fiat" class="imagem-carro">
+                <div class="detalhes-carro">
+                    <h3>Fiat Pulse</h3>
+                    <p>O novo Fiat Pulse, com design robusto e inovador, pensado para quem busca potência e estilo.</p>
+                </div>
+            </div>
+
+            <div id="gerenciamento-usuarios" style="display: none;">
+                <h2>Usuários Cadastrados</h2>
+                <div class="usuarios-lista">
+                    <div class="usuario-card">
+                        <div class="usuario-info">
+                            <h3>João Silva</h3>
+                            <p>Email: joao@email.com</p>
+                        </div>
+                        <div class="usuario-acoes">
+                            <button class="btn-ver">Ver</button>
+                            <button class="btn-editar">Editar</button>
+                            <button class="btn-excluir">Excluir</button>
+                        </div>
+                    </div>
+
+                    <div class="usuario-card">
+                        <div class="usuario-info">
+                            <h3>Maria Souza</h3>
+                            <p>Email: maria@email.com</p>
+                        </div>
+                        <div class="usuario-acoes">
+                            <button class="btn-ver">Ver</button>
+                            <button class="btn-editar">Editar</button>
+                            <button class="btn-excluir">Excluir</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+
+            <div id="formulario-usuario" style="display: none;">
+                
+                <form class="form-usuario" onsubmit="cadastrarUsuario(event)">
+                    <h2>Preencha o Formulário</h2>
+                    <div class="input-group">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="senha">Senha:</label>
+                        <input type="password" id="senha" required>
+                    </div>
+                    <button type="submit" class="btn-cadastrar">Cadastrar</button>
+                </form>
+            </div>
+        </div> 
+    </div>
+
+    <script>
+        function mostrarFormulario() {
+            document.getElementById('formulario-usuario').style.display = 'block';
+            document.getElementById('gerenciamento-usuarios').style.display = 'none';
+        }
+
+        function mostrarListaUsuarios() {
+            document.getElementById('formulario-usuario').style.display = 'none';
+            document.getElementById('gerenciamento-usuarios').style.display = 'block';
+        }
+
+        function cadastrarUsuario(event) {
+            event.preventDefault(); // Evita o envio do formulário
+            const nome = document.getElementById('nome').value;
+            const email = document.getElementById('email').value;
+
+            // Adiciona o novo usuário à lista
+            const usuarioCard = `
+                <div class="usuario-card">
+                    <div class="usuario-info">
+                        <h3>${nome}</h3>
+                        <p>Email: ${email}</p>
+                    </div>
+                    <div class="usuario-acoes">
+                        <button class="btn-ver">Ver</button>
+                        <button class="btn-editar">Editar</button>
+                        <button class="btn-excluir">Excluir</button>
+                    </div>
+                </div>
+            `;
+
+            // Adiciona o usuário ao gerenciamento
+            const usuariosLista = document.querySelector('.usuarios-lista');
+            usuariosLista.insertAdjacentHTML('beforeend', usuarioCard);
+
+            // Limpa o formulário
+            document.getElementById('formulario-usuario').reset();
+            mostrarListaUsuarios(); // Mostra a lista de usuários após adicionar
+        }
+    </script>
+</body>
+</html>
